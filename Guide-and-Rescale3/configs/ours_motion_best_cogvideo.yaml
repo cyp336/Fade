@@ -1,0 +1,33 @@
+scheduler_type: ddim_50_eps
+inversion_type: dummy
+model_name: stable-diffusion-v1-4
+pipeline_type: ours
+start_latent: latent_trajectory
+verbose: false
+guiders:
+    - name: cfg
+      #g_scale: 7.5
+      g_scale: 6.
+      kwargs:
+        is_source_guidance: false
+    - name: self_attn_map_l2_appearance_cogvideo_motion
+      g_scale: 1.
+      kwargs:
+        #my code
+        #self_attn_gs: 300000.
+        self_attn_gs: 0
+        #app_gs: 500.
+        app_gs: 5e2
+        new_features: true
+        total_first_steps: 30 
+noise_rescaling_setup:
+    type: range_other_on_cfg_norm
+    init_setup:
+        # - 0.33
+        # - 3.0
+        - 0.33
+        - 3.0
+edit_types: 
+    - animal-2-animal
+    - face-in-the-wild
+    - person-in-the-wild
